@@ -10,6 +10,15 @@ var usersRouter = require('./routes/users');
 
 var app = express();
 
+// environment configuration
+var envIndex = process.argv.indexOf('--env');
+var environment = process.argv[envIndex + 1];
+if (environment === 'development') {
+  require('./config/db_config_dev');
+} else if (environment === 'production') {
+  require('./config/db_config_prod');
+}
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
